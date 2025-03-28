@@ -3,7 +3,7 @@
 ## Introduction
 Welcome to the Quiz Platform! This project is built using Vite + React, Firebase, Tailwind CSS, JavaScript, and CSS. The platform allows users to create and participate in quizzes within groups.
 
-[CLICK HERE TO VIEW REQUIREMENTS](requirements.md)
+[CLICK HERE TO VIEW REQUIREMENTS](requirement.md)
 
 ## Technologies Used
 - **Vite + React**: For frontend development
