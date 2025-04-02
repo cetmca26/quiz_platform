@@ -1,18 +1,44 @@
-import React from 'react';
+import React, { Suspense } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import SecureAuthRoutes from "./utils/SecureAuthRoutes"; // Auth Middleware
+import NotFound from "./pages/NotFound"; // 404 Page
+import LoadingSpinner from "./components/LoadingSpinner"; // Loader Component
+import UserLogin from "./components/user/UserLogin";
 import './App.css';
-import logo from "./assets/logotext.png"
+
+
+
+// Lazy load components for efficiency
+const UserSignup = React.lazy(() => import("./components/user/UserSignup"));
+
+// User Pages
+const Dashboard = React.lazy(() => import("./components/user/Dashboard"));
+
+
 
 function App() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-white dark:bg-gray-900 text-black dark:text-white">
-  <main className="p-4 text-center">
-    <h1 className="text-2xl">Welcome to your quiz app.</h1>
-    <p className="animate-pulse text-lg font-semibold">Coming soon...</p>
-    <img src={logo} alt="Logo" className="w-30 h-9  brightness-0 invert" />
-  </main>
-</div>
+    <Router>
+        <Suspense fallback={<LoadingSpinner />}>
+            <Routes>
+               
+                <Route path="/" element={<UserLogin />} />
 
-  );
+                {/* Public Routes */}
+                <Route path="/signup" element={<UserSignup />} />
+                
+
+                {/* Protected Routes (User) */}
+                <Route element={<SecureAuthRoutes />}>
+                <Route path="/dashboard" element={<Dashboard />} />
+                </Route>
+
+                {/* Not Found Route */}
+                <Route path="*" element={<NotFound />} />
+            </Routes>
+        </Suspense>
+    </Router>
+);
 }
 
 export default App;

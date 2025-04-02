@@ -14,6 +14,7 @@ export default defineConfig({
   variants: {
     extend: {},
   },
+  
 })
 
 
